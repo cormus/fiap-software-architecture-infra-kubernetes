@@ -14,7 +14,7 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       environment: prod
-      aws-assume-role-arn: "arn:aws:iam::{{ sua conta aws }}:role/{{ nome da role }}"
-      aws-region: "sa-east-1"
-      aws-statefile-s3-bucket: "{{ nome do bucket s3 }}"
-      aws-lock-dynamodb-table: "{{ nome da tabela do dynamodb }}"
+      aws-assume-role-arn: "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
+      aws-region: "us-east-2"
+      aws-statefile-s3-bucket: "cormus-fiap-kubernetes-s3-infra"
+      aws-lock-dynamodb-table: "cormus-fiap-kubernetes-dinamodb-infra"
