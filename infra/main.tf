@@ -17,9 +17,8 @@ module "vpc" {
  
 module "eks" {
     source          = "terraform-aws-modules/eks/aws"
-    version         = "19.21.0"
     cluster_name    = "springboot-eks"
-    cluster_version = "1.32"
+    cluster_version = "1.29"
     subnet_ids      = module.vpc.private_subnets 
     vpc_id          = module.vpc.vpc_id
 
@@ -35,25 +34,20 @@ module "eks" {
             instance_types = ["t3.medium"]
         }
     }
+}
 
-    manage_aws_auth_configmap = true
-    aws_auth_roles = [
-        {
-            rolearn  = "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
-            username = "github"
-            groups   = ["system:masters"]
-        }
-    ]
+module "aws_auth" {
+  source = "terraform-aws-modules/eks/aws//modules/aws-auth"
 
-    aws_auth_users = [
-        {
-            rolearn  = "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
-            username = "github"
-            groups   = ["system:masters"]
-        }
-    ]
+  cluster_name = module.eks.cluster_name
 
-    tags = {
-        Name = "springboot-eks"
+  manage_aws_auth_configmap = true
+
+  aws_auth_roles = [
+    {
+      rolearn  = "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
+      username = "github"
+      groups   = ["system:masters"]
     }
+  ]
 }
