@@ -17,6 +17,7 @@ module "vpc" {
  
 module "eks" {
     source          = "terraform-aws-modules/eks/aws"
+    version         = "19.21.0"
     cluster_name    = "springboot-eks"
     cluster_version = "1.32"
     subnet_ids      = module.vpc.private_subnets 
