@@ -83,9 +83,7 @@ jobs:
       - name: Login to Amazon EKS
         run: |
           aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
-        
-      - name: Deploy to Kubernetes
-        run: |
           kubectl apply -f k8s/mysql-configmap.yaml
           kubectl apply -f k8s/mysql-secret.yaml
           kubectl apply -f k8s/spring-deployment.yaml
+          
