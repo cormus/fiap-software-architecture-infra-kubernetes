@@ -13,7 +13,7 @@ jobs:
   terraform:
     uses: ./.github/workflows/terraform.yml
     with:
-      environment: prod
+      environment: kubernetes
       aws-assume-role-arn: "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
       aws-region: "us-east-2"
       aws-statefile-s3-bucket: "cormus-fiap-kubernetes-s3-infra"
