@@ -22,6 +22,9 @@ module "eks" {
   subnet_ids      = module.vpc.private_subnets 
   vpc_id          = module.vpc.vpc_id
 
+  # Acesso ao endpoint da API EKS
+  cluster_endpoint_public_access  = true
+
   eks_managed_node_groups = {
     default = {
       desired_capacity = 2
