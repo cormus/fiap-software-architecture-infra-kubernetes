@@ -39,7 +39,7 @@ module "eks" {
 module "aws_auth" {
   source = "terraform-aws-modules/eks/aws//modules/aws-auth"
 
-  cluster_name = module.eks.cluster_name
+  eks_cluster_id = module.eks.id
 
   manage_aws_auth_configmap = true
 
