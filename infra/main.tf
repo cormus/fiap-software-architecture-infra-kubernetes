@@ -17,13 +17,27 @@ module "vpc" {
  
 module "eks" {
     source          = "terraform-aws-modules/eks/aws"
-    cluster_name    = "springboot-eks"
-    cluster_version = "1.29"
-    subnet_ids      = module.vpc.private_subnets 
+    version         = "19.15.1"
+
+    cluster_name                    = "springboot-eks"
+    cluster_endpoint_public_access  = true
+
+    cluster_addons = {
+        coredns = {
+            most_recent = true
+        }
+        kube-proxy = {
+            most_recent = true
+        }
+        vpc-cni = {
+            most_recent = true
+        }
+    }
+
     vpc_id          = module.vpc.vpc_id
+    subnet_ids      = module.vpc.private_subnets 
 
     # Acesso ao endpoint da API EKS
-    cluster_endpoint_public_access  = true
 
     eks_managed_node_groups = {
         default = {
@@ -34,20 +48,4 @@ module "eks" {
             instance_types = ["t3.medium"]
         }
     }
-}
-
-module "aws_auth" {
-  source = "terraform-aws-modules/eks/aws//modules/aws-auth"
-
-  eks_cluster_id = module.eks.id
-
-  manage_aws_auth_configmap = true
-
-  aws_auth_roles = [
-    {
-      rolearn  = "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
-      username = "github"
-      groups   = ["system:masters"]
-    }
-  ]
 }
