@@ -1,5 +1,6 @@
 provider "aws" {
   region = "us-east-2"
+  profile = "DaMak0TwByWjAu7C/+J5EiABPDBGoUYos1dbLORU"
 }
 
 terraform {
