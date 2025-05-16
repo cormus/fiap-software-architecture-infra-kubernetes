@@ -3,7 +3,7 @@ module "aws_auth" {
   source = "terraform-aws-modules/eks/aws//modules/aws-auth"
   manage_aws_auth_configmap = true
 
-  depends_on = [module.eks]
+  ##depends_on = [module.eks]
 
   aws_auth_roles = [
   {
