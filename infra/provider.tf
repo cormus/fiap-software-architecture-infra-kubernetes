@@ -20,5 +20,9 @@ terraform {
       source  = "hashicorp/time"
       version = "~> 0.9"
     }
+    cloudinit = {
+      source  = "hashicorp/cloudinit"
+      version = "~> 2.3"
+    }
   }
 }
