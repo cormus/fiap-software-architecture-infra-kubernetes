@@ -70,6 +70,7 @@ jobs:
         if: steps.read-destroy-config.outputs.destroy != 'true'
         id: terraform-plan
         run: cd infra &&
+          aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
           terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
           terraform plan -var-file="./terraform.tfvars" -out="${{ inputs.environment }}.plan"
 
