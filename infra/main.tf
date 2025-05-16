@@ -1,4 +1,4 @@
-m
+
 module "aws_auth" {
   source = "terraform-aws-modules/eks/aws//modules/aws-auth"
   manage_aws_auth_configmap = true
