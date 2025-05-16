@@ -80,10 +80,10 @@ jobs:
           terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
           terraform apply "${{ inputs.environment }}.plan"
 
-      - name: Login to Amazon EKS
-        run: |
-          aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
-          kubectl apply -f k8s/mysql-configmap.yaml
-          kubectl apply -f k8s/mysql-secret.yaml
-          kubectl apply -f k8s/spring-deployment.yaml
+      # - name: Login to Amazon EKS
+      #   run: |
+      #     aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
+      #     kubectl apply -f k8s/mysql-configmap.yaml
+      #     kubectl apply -f k8s/mysql-secret.yaml
+      #     kubectl apply -f k8s/spring-deployment.yaml
           
