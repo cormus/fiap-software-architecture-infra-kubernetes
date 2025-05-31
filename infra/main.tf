@@ -92,3 +92,13 @@ module "eks" {
 #   ]
 # }
  
+
+resource "aws_ecr_repository" "app_repo" {
+  name = var.ecr_repository_name
+  image_tag_mutability = "MUTABLE"
+  force_delete         = true
+}
+
+output "repository_url" {
+  value = aws_ecr_repository.app_repo.repository_url
+}
