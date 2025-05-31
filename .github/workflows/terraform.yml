@@ -84,6 +84,27 @@ jobs:
         run: |
           aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
 
+      - name: Apply aws-auth ConfigMap
+        run: |
+          kubectl apply -f - <<EOF
+          apiVersion: v1
+          kind: ConfigMap
+          metadata:
+            name: aws-auth
+            namespace: kube-system
+          data:
+            mapRoles: |
+              - rolearn: arn:aws:iam::123456789012:role/eks-admin-role
+                username: euser1
+                groups:
+                  - system:masters
+            mapUsers: |
+              - userarn: arn:aws:iam::66666666666:user/user1
+                username: user1
+                groups:
+                  - system:masters
+          EOF
+
       # - name: Login to Amazon EKS
       #   run: |
       #     aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
