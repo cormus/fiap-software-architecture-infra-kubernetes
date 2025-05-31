@@ -49,23 +49,23 @@ module "eks" {
         }
     }
 
-    manage_aws_auth_configmap = true
+    manage_aws_auth_configmap = false
 
-    aws_auth_users = [
-      {
-        userarn  = "arn:aws:iam::66666666666:user/user1"
-        username = "user1"
-        groups   = ["system:masters"]
-      }
-    ]
+    # aws_auth_users = [
+    #   {
+    #     userarn  = "arn:aws:iam::66666666666:user/user1"
+    #     username = "user1"
+    #     groups   = ["system:masters"]
+    #   }
+    # ]
 
-    aws_auth_roles = [
-    {
-      rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
-      username = "euser1"
-      groups   = ["system:masters"]
-    }
-  ]
+    # aws_auth_roles = [
+    # {
+    #   rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
+    #   username = "euser1"
+    #   groups   = ["system:masters"]
+    # }
+    #]
 
 }
 
