@@ -59,7 +59,7 @@ module "eks" {
       }
     ]
 
-    ws_auth_roles = [
+    aws_auth_roles = [
     {
       rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
       username = "euser1"
