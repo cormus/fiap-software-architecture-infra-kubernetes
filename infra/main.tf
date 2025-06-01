@@ -50,24 +50,26 @@ module "eks" {
         }
     }
 
+    enable_cluster_creator_admin_permissions = true
+
     # Configuração do aws-auth
-    manage_aws_auth_configmap = true
+    # manage_aws_auth_configmap = true
 
-    aws_auth_roles = [
-      {
-        rolearn  = "arn:aws:iam::881307377501:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
-        username = "AWSServiceRoleForAmazonEKS"
-        groups   = ["system:masters"]
-      }
-    ]
+    # aws_auth_roles = [
+    #   {
+    #     rolearn  = "arn:aws:iam::881307377501:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
+    #     username = "AWSServiceRoleForAmazonEKS"
+    #     groups   = ["system:masters"]
+    #   }
+    # ]
 
-    aws_auth_users = [
-      {
-        userarn  = "arn:aws:iam::881307377501:user/terraformUser"
-        username = "terraformUser"
-        groups   = ["system:masters"]
-      }
-    ]
+    # aws_auth_users = [
+    #   {
+    #     userarn  = "arn:aws:iam::881307377501:user/terraformUser"
+    #     username = "terraformUser"
+    #     groups   = ["system:masters"]
+    #   }
+    # ]
 
     tags = {
       Environment = "production"
