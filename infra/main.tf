@@ -55,15 +55,15 @@ module "eks" {
 
     aws_auth_roles = [
       {
-        rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
-        username = "eks-admin"
+        rolearn  = "arn:aws:iam::881307377501:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
+        username = "terraformUser"
         groups   = ["system:masters"]
       }
     ]
 
     aws_auth_users = [
       {
-        userarn  = "arn:aws:iam::123456789012:user/eks-user"
+        userarn  = "arn:aws:iam::881307377501:user/terraformUser"
         username = "eks-user"
         groups   = ["system:masters"]
       }
