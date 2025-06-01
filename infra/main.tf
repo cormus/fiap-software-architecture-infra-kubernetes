@@ -20,7 +20,7 @@ module "eks" {
     version         = "19.15.1"
 
     cluster_name                    = "springboot-eks"
-    cluster_version                 = "1.24"
+    cluster_version                 = "1.29"
     cluster_endpoint_public_access  = true
 
     cluster_addons = {
