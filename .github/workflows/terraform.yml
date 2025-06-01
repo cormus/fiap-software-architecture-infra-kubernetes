@@ -96,13 +96,13 @@ jobs:
             namespace: kube-system
           data:
             mapRoles: |
-              - rolearn: arn:aws:iam::123456789012:role/eks-admin-role
-                username: euser1
+              - rolearn: arn:aws:iam::881307377501:role/github-actions-fiap-pipelike
+                username: admin
                 groups:
                   - system:masters
             mapUsers: |
-              - userarn: arn:aws:iam::66666666666:user/user1
-                username: user1
+              - userarn: arn:aws:iam::881307377501:user/terraformUser
+                username: admin
                 groups:
                   - system:masters
           EOF
