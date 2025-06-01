@@ -81,10 +81,12 @@ jobs:
           terraform apply "${{ inputs.environment }}.plan"
 
       - name: Login to Amazon EKS
+        if: steps.read-destroy-config.outputs.destroy != 'true'
         run: |
           aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
 
       - name: Apply aws-auth ConfigMap
+        if: steps.read-destroy-config.outputs.destroy != 'true'
         run: |
           kubectl apply -f - <<EOF
           apiVersion: v1
