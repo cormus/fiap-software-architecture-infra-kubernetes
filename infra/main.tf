@@ -47,6 +47,85 @@ module "eks" {
   }
 }
 
+# module "eks" {
+#     source  = "terraform-aws-modules/eks/aws"
+#     version = "~> 20.31"
+
+#     cluster_name                    = "springboot-eks"
+#     cluster_version                 = "1.31"
+#     cluster_endpoint_public_access  = true
+
+#     cluster_addons = {
+#         coredns = {
+#             most_recent = true
+#         }
+#         kube-proxy = {
+#             most_recent = true
+#         }
+#         vpc-cni = {
+#             most_recent = true
+#         }
+#     }
+
+#     vpc_id          = module.vpc.vpc_id
+#     subnet_ids      = module.vpc.private_subnets 
+
+#     # Acesso ao endpoint da API EKS
+
+#     eks_managed_node_groups = {
+#         default = {
+#             desired_capacity = 2
+#             max_capacity     = 3
+#             min_capacity     = 1
+
+#             instance_types = ["t3.medium"]
+#         }
+#     }
+
+#     enable_cluster_creator_admin_permissions = true
+
+#     # Configuração do aws-auth
+#     # manage_aws_auth_configmap = true
+
+#     # aws_auth_roles = [
+#     #   {
+#     #     rolearn  = "arn:aws:iam::881307377501:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
+#     #     username = "AWSServiceRoleForAmazonEKS"
+#     #     groups   = ["system:masters"]
+#     #   }
+#     # ]
+
+#     # aws_auth_users = [
+#     #   {
+#     #     userarn  = "arn:aws:iam::881307377501:user/terraformUser"
+#     #     username = "terraformUser"
+#     #     groups   = ["system:masters"]
+#     #   }
+#     # ]
+
+#     tags = {
+#       Environment = "production"
+#       Project     = "example-project"
+#     }
+
+#     # aws_auth_users = [
+#     #   {
+#     #     userarn  = "arn:aws:iam::66666666666:user/user1"
+#     #     username = "user1"
+#     #     groups   = ["system:masters"]
+#     #   }
+#     # ]
+
+#     # aws_auth_roles = [
+#     # {
+#     #   rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
+#     #   username = "euser1"
+#     #   groups   = ["system:masters"]
+#     # }
+#     #]
+
+# }
+
 # module "aws_auth" {
 #   source = "terraform-aws-modules/eks/aws//modules/aws-auth"
 #   manage_aws_auth_configmap = true
