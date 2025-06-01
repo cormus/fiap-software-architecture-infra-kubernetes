@@ -20,6 +20,7 @@ module "eks" {
     version         = "19.15.1"
 
     cluster_name                    = "springboot-eks"
+    cluster_version                 = "1.24"
     cluster_endpoint_public_access  = true
 
     cluster_addons = {
@@ -49,7 +50,29 @@ module "eks" {
         }
     }
 
-    manage_aws_auth_configmap = false
+    # Configuração do aws-auth
+    manage_aws_auth_configmap = true
+
+    aws_auth_roles = [
+      {
+        rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
+        username = "eks-admin"
+        groups   = ["system:masters"]
+      }
+    ]
+
+    aws_auth_users = [
+      {
+        userarn  = "arn:aws:iam::123456789012:user/eks-user"
+        username = "eks-user"
+        groups   = ["system:masters"]
+      }
+    ]
+
+    tags = {
+      Environment = "production"
+      Project     = "example-project"
+    }
 
     # aws_auth_users = [
     #   {
