@@ -22,21 +22,19 @@ module "eks" {
   cluster_name    = "springboot-eks"
   cluster_version = "1.31"
 
-  # Optional
   cluster_endpoint_public_access = true
 
-  # Optional: Adds the current caller identity as an administrator via cluster access entry
   enable_cluster_creator_admin_permissions = true
 
-    eks_managed_node_groups = {
-        default = {
-            desired_capacity = 2
-            max_capacity     = 3
-            min_capacity     = 1
+  eks_managed_node_groups = {
+      default = {
+          desired_capacity = 2
+          max_capacity     = 3
+          min_capacity     = 1
 
-            instance_types = ["t3.medium"]
-        }
-    }
+          instance_types = ["t3.medium"]
+      }
+  }
 
   vpc_id          = module.vpc.vpc_id
   subnet_ids      = module.vpc.private_subnets 
@@ -47,113 +45,11 @@ module "eks" {
   }
 }
 
-# module "eks" {
-#     source  = "terraform-aws-modules/eks/aws"
-#     version = "~> 20.31"
-
-#     cluster_name                    = "springboot-eks"
-#     cluster_version                 = "1.31"
-#     cluster_endpoint_public_access  = true
-
-#     cluster_addons = {
-#         coredns = {
-#             most_recent = true
-#         }
-#         kube-proxy = {
-#             most_recent = true
-#         }
-#         vpc-cni = {
-#             most_recent = true
-#         }
-#     }
-
-#     vpc_id          = module.vpc.vpc_id
-#     subnet_ids      = module.vpc.private_subnets 
-
-#     # Acesso ao endpoint da API EKS
-
-#     eks_managed_node_groups = {
-#         default = {
-#             desired_capacity = 2
-#             max_capacity     = 3
-#             min_capacity     = 1
-
-#             instance_types = ["t3.medium"]
-#         }
-#     }
-
-#     enable_cluster_creator_admin_permissions = true
-
-#     # Configuração do aws-auth
-#     # manage_aws_auth_configmap = true
-
-#     # aws_auth_roles = [
-#     #   {
-#     #     rolearn  = "arn:aws:iam::881307377501:role/aws-service-role/eks.amazonaws.com/AWSServiceRoleForAmazonEKS"
-#     #     username = "AWSServiceRoleForAmazonEKS"
-#     #     groups   = ["system:masters"]
-#     #   }
-#     # ]
-
-#     # aws_auth_users = [
-#     #   {
-#     #     userarn  = "arn:aws:iam::881307377501:user/terraformUser"
-#     #     username = "terraformUser"
-#     #     groups   = ["system:masters"]
-#     #   }
-#     # ]
-
-#     tags = {
-#       Environment = "production"
-#       Project     = "example-project"
-#     }
-
-#     # aws_auth_users = [
-#     #   {
-#     #     userarn  = "arn:aws:iam::66666666666:user/user1"
-#     #     username = "user1"
-#     #     groups   = ["system:masters"]
-#     #   }
-#     # ]
-
-#     # aws_auth_roles = [
-#     # {
-#     #   rolearn  = "arn:aws:iam::123456789012:role/eks-admin-role"
-#     #   username = "euser1"
-#     #   groups   = ["system:masters"]
-#     # }
-#     #]
-
-# }
-
-# module "aws_auth" {
-#   source = "terraform-aws-modules/eks/aws//modules/aws-auth"
-#   manage_aws_auth_configmap = true
-
-#   depends_on = [module.eks]
-
-#   aws_auth_roles = [
-#   {
-#     rolearn  = "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
-#     username = "role1"
-#     groups   = ["system:masters"]
-#   }
-# ]
-
-#   aws_auth_users = [
-#     {
-#       userarn  = "arn:aws:iam::881307377501:user/terraformUser"
-#       username = "user1"
-#       groups   = ["system:masters"]
-#     }
-#   ]
-# }
- 
 
 resource "aws_ecr_repository" "app_repo" {
   name = var.ecr_repository_name
-  image_tag_mutability = "MUTABLE"
-  force_delete         = true
+  image_tag_mutability = "IMMUTABLE" # não permite que as tags das imagens sejam alteradas
+  force_delete         = true # permite destruir o repositório mesmo que existam imagens dentro dele
 }
 
 output "repository_url" {
