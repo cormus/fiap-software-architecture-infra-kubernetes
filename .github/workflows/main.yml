@@ -16,5 +16,5 @@ jobs:
       environment: kubernetes
       aws-assume-role-arn: "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
       aws-region: "us-east-2"
-      aws-statefile-s3-bucket: "cormus-fiap-kubernetes-s3-infra"
-      aws-lock-dynamodb-table: "cormus-fiap-kubernetes-dinamodb-infra"
+      aws-statefile-s3-bucket: "fiap-kubernetes-s3-infra"
+      aws-lock-dynamodb-table: "fiap-kubernetes-dinamodb-infra"
