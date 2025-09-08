@@ -14,7 +14,7 @@ jobs:
     uses: ./.github/workflows/terraform.yml
     with:
       environment: kubernetes
-      aws-assume-role-arn: "arn:aws:iam::881307377501:role/github-actions-fiap-pipelike"
+      aws-assume-role-arn: "arn:aws:iam::087983370089:role/fiap-pos"
       aws-region: "us-east-2"
       aws-statefile-s3-bucket: "fiap-kubernetes-s3-infra"
       aws-lock-dynamodb-table: "fiap-kubernetes-dinamodb-infra"
