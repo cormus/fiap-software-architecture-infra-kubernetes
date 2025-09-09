@@ -10,6 +10,7 @@ module "vpc" {
 
   enable_nat_gateway = true
   single_nat_gateway = true
+  manage_default_network_acl = false
   tags = {
     Name = "eks-vpc"
   }
