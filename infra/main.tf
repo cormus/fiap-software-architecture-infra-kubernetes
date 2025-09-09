@@ -55,3 +55,17 @@ resource "aws_ecr_repository" "app_repo" {
 output "repository_url" {
   value = aws_ecr_repository.app_repo.repository_url
 }
+
+resource "aws_sqs_queue" "video_queue" {
+  name                      = "video-queue"
+  visibility_timeout_seconds = 30
+  message_retention_seconds  = 345600
+  delay_seconds              = 0
+  max_message_size           = 262144
+  receive_wait_time_seconds  = 0
+
+  tags = {
+    Environment = "dev"
+    Project     = "video-processamento"
+  }
+}
