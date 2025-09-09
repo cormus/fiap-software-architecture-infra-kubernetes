@@ -96,12 +96,12 @@ jobs:
             namespace: kube-system
           data:
             mapRoles: |
-              - rolearn: arn:aws:iam::881307377501:role/github-actions-fiap-pipelike
+              - rolearn: arn:aws:iam::087983370089:role/fiap-pos
                 username: admin
                 groups:
                   - system:masters
             mapUsers: |
-              - userarn: arn:aws:iam::881307377501:user/terraformUser
+              - userarn: arn:aws:iam::087983370089:user/terraform
                 username: admin
                 groups:
                   - system:masters
