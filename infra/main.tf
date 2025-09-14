@@ -95,7 +95,11 @@ resource "aws_s3_bucket" "video_bucket" {
   }
 }
 
-resource "aws_s3_bucket_acl" "video_bucket_acl" {
+# Define que o dono do bucket é o dono dos objetos (desativa ACLs)
+resource "aws_s3_bucket_ownership_controls" "video_bucket_ownership" {
   bucket = aws_s3_bucket.video_bucket.id
-  acl    = "private"
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
