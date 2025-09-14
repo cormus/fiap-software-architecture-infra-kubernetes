@@ -85,3 +85,13 @@ resource "aws_sqs_queue" "image_zip_queue" {
     Project     = "image-zip-processamento"
   }
 }
+
+resource "aws_s3_bucket" "video_bucket" {
+  bucket = "video-bucket-fiap"
+  acl    = "private"
+
+  tags = {
+    Environment = "dev"
+    Project     = "fiap-projeto"
+  }
+}
