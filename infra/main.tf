@@ -88,10 +88,14 @@ resource "aws_sqs_queue" "image_zip_queue" {
 
 resource "aws_s3_bucket" "video_bucket" {
   bucket = "video-bucket-fiap"
-  acl    = "private"
 
   tags = {
     Environment = "dev"
     Project     = "fiap-projeto"
   }
+}
+
+resource "aws_s3_bucket_acl" "video_bucket_acl" {
+  bucket = aws_s3_bucket.video_bucket.id
+  acl    = "private"
 }
