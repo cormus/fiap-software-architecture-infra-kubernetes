@@ -1,61 +1,61 @@
-module "vpc" {
-  source  = "terraform-aws-modules/vpc/aws"
-  version = "5.1.0"
-  name    = "eks-vpc"
-  cidr    = "10.0.0.0/16"
+# module "vpc" {
+#   source  = "terraform-aws-modules/vpc/aws"
+#   version = "5.1.0"
+#   name    = "eks-vpc"
+#   cidr    = "10.0.0.0/16"
 
-  azs             = ["us-east-2a", "us-east-2b"]
-  private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
-  public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
+#   azs             = ["us-east-2a", "us-east-2b"]
+#   private_subnets = ["10.0.1.0/24", "10.0.2.0/24"]
+#   public_subnets  = ["10.0.3.0/24", "10.0.4.0/24"]
 
-  enable_nat_gateway = true
-  single_nat_gateway = true
-  manage_default_network_acl = false
-  tags = {
-    Name = "eks-vpc"
-  }
-}
+#   enable_nat_gateway = true
+#   single_nat_gateway = true
+#   manage_default_network_acl = false
+#   tags = {
+#     Name = "eks-vpc"
+#   }
+# }
 
-module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "~> 20.31"
+# module "eks" {
+#   source  = "terraform-aws-modules/eks/aws"
+#   version = "~> 20.31"
 
-  cluster_name    = "fiap-pos-eks"
-  cluster_version = "1.31"
+#   cluster_name    = "fiap-pos-eks"
+#   cluster_version = "1.31"
 
-  cluster_endpoint_public_access = true
+#   cluster_endpoint_public_access = true
 
-  enable_cluster_creator_admin_permissions = true
+#   enable_cluster_creator_admin_permissions = true
 
-  eks_managed_node_groups = {
-      default = {
-          desired_capacity = 1
-          max_capacity     = 1
-          min_capacity     = 1
+#   eks_managed_node_groups = {
+#       default = {
+#           desired_capacity = 1
+#           max_capacity     = 1
+#           min_capacity     = 1
 
-          instance_types = ["t3.micro"]
-      }
-  }
+#           instance_types = ["t3.micro"]
+#       }
+#   }
 
-  vpc_id          = module.vpc.vpc_id
-  subnet_ids      = module.vpc.private_subnets 
+#   vpc_id          = module.vpc.vpc_id
+#   subnet_ids      = module.vpc.private_subnets 
 
-  tags = {
-    Environment = "dev"
-    Terraform   = "true"
-  }
-}
+#   tags = {
+#     Environment = "dev"
+#     Terraform   = "true"
+#   }
+# }
 
 
-resource "aws_ecr_repository" "app_repo" {
-  name = var.ecr_repository_name
-  image_tag_mutability = "IMMUTABLE" # não permite que as tags das imagens sejam alteradas
-  force_delete         = true # permite destruir o repositório mesmo que existam imagens dentro dele
-}
+# resource "aws_ecr_repository" "app_repo" {
+#   name = var.ecr_repository_name
+#   image_tag_mutability = "IMMUTABLE" # não permite que as tags das imagens sejam alteradas
+#   force_delete         = true # permite destruir o repositório mesmo que existam imagens dentro dele
+# }
 
-output "repository_url" {
-  value = aws_ecr_repository.app_repo.repository_url
-}
+# output "repository_url" {
+#   value = aws_ecr_repository.app_repo.repository_url
+# }
 
 resource "aws_sqs_queue" "video_queue" {
   name                      = "video-queue"
@@ -68,5 +68,20 @@ resource "aws_sqs_queue" "video_queue" {
   tags = {
     Environment = "dev"
     Project     = "video-processamento"
+  }
+}
+
+
+resource "aws_sqs_queue" "image_zip_queue" {
+  name                      = "image-zip-queue"
+  visibility_timeout_seconds = 30
+  message_retention_seconds  = 345600
+  delay_seconds              = 0
+  max_message_size           = 262144
+  receive_wait_time_seconds  = 0
+
+  tags = {
+    Environment = "dev"
+    Project     = "image-zip-processamento"
   }
 }

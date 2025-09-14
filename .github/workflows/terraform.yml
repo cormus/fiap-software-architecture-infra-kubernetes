@@ -80,30 +80,30 @@ jobs:
           terraform workspace select ${{ inputs.environment }} || terraform workspace new ${{ inputs.environment }} &&
           terraform apply "${{ inputs.environment }}.plan"
 
-      - name: Login to Amazon EKS
-        if: steps.read-destroy-config.outputs.destroy != 'true'
-        run: |
-          aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
+      # - name: Login to Amazon EKS
+      #   if: steps.read-destroy-config.outputs.destroy != 'true'
+      #   run: |
+      #     aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
 
-      - name: Apply aws-auth ConfigMap
-        if: steps.read-destroy-config.outputs.destroy != 'true'
-        run: |
-          kubectl apply -f - <<EOF
-          apiVersion: v1
-          kind: ConfigMap
-          metadata:
-            name: aws-auth
-            namespace: kube-system
-          data:
-            mapRoles: |
-              - rolearn: arn:aws:iam::087983370089:role/fiap-pos
-                username: admin
-                groups:
-                  - system:masters
-            mapUsers: |
-              - userarn: arn:aws:iam::087983370089:user/terraform
-                username: admin
-                groups:
-                  - system:masters
-          EOF
+      # - name: Apply aws-auth ConfigMap
+      #   if: steps.read-destroy-config.outputs.destroy != 'true'
+      #   run: |
+      #     kubectl apply -f - <<EOF
+      #     apiVersion: v1
+      #     kind: ConfigMap
+      #     metadata:
+      #       name: aws-auth
+      #       namespace: kube-system
+      #     data:
+      #       mapRoles: |
+      #         - rolearn: arn:aws:iam::087983370089:role/fiap-pos
+      #           username: admin
+      #           groups:
+      #             - system:masters
+      #       mapUsers: |
+      #         - userarn: arn:aws:iam::087983370089:user/terraform
+      #           username: admin
+      #           groups:
+      #             - system:masters
+      #     EOF
           
