@@ -87,7 +87,7 @@ resource "aws_sqs_queue" "image_zip_queue" {
 }
 
 resource "aws_s3_bucket" "video_bucket" {
-  bucket = "video-bucket-fiap"
+  bucket = "bucket-video-processing-fiap"
 
   tags = {
     Environment = "dev"
