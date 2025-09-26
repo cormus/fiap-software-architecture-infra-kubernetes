@@ -83,7 +83,7 @@ jobs:
       - name: Login to Amazon EKS
         if: steps.read-destroy-config.outputs.destroy != 'true'
         run: |
-          aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name springboot-eks
+          aws eks update-kubeconfig --region ${{ inputs.aws-region }} --name fiap-pos-eks
 
       - name: Apply aws-auth ConfigMap
         if: steps.read-destroy-config.outputs.destroy != 'true'
