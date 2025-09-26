@@ -15,6 +15,6 @@ jobs:
     with:
       environment: kubernetes
       aws-assume-role-arn: "arn:aws:iam::087983370089:role/fiap-pos"
-      aws-region: "us-east-1"
+      aws-region: "us-east-2"
       aws-statefile-s3-bucket: "fiap-kubernetes-s3-infra"
       aws-lock-dynamodb-table: "fiap-kubernetes-dinamodb-infra"
